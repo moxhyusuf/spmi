@@ -30,11 +30,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Standar</th>
-                                <th>No IKU</th>
+                                <th style="white-space: nowrap">No IKU</th>
                                 <th>Prodi</th>
-                                <th>Tanggal</th>
+                                <th style="white-space: nowrap">Tanggal</th>
                                 <th>Keterangan</th>
-                                <th>Dokumen</th>
+                                {{-- <th>Dokumen</th> --}}
                                 @if (auth()->user()->role === 'pic')
                                     <th>Aksi</th>
                                 @endif
@@ -48,13 +48,13 @@
                                     <td>{{ $pelaksanaan->indikator->standar->nama }}</td>
                                     <td>{{ $pelaksanaan->indikator->no_iku }}</td>
                                     <td>{{ $pelaksanaan->prodi }}</td>
-                                    <td>{{ $pelaksanaan->tanggal }}</td>
+                                    <td style="white-space: nowrap">{{ $pelaksanaan->tanggal }}</td>
                                     <td>{{ $pelaksanaan->keterangan }}</td>
-                                    <td>
+                                    {{-- <td>
                                         <a href="{{ asset('storage/' . $pelaksanaan->dokumen) }}" target="_blank" class="btn btn-sm btn-outline-info">
                                             Lihat
                                         </a>
-                                    </td>
+                                    </td> --}}
                                     @if (auth()->user()->role === 'pic')
                                         <td>
                                             <div class="d-flex gap-1">

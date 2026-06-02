@@ -33,12 +33,14 @@ class PelaksanaanController extends Controller
             'prodi' => 'required',
             'tanggal' => 'required|date',
             'keterangan' => 'required|string',
-            'dokumen' => 'required|file|mimes:pdf,doc,docx',
+            'dokumen' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
-        $validated['dokumen'] = $request
-            ->file('dokumen')
-            ->store('dokumen', 'public');
+        if ($request->hasFile('dokumen')) {
+            $validated['dokumen'] = $request
+                ->file('dokumen')
+                ->store('dokumen', 'public');
+        }
 
         Pelaksanaan::create($validated);
 

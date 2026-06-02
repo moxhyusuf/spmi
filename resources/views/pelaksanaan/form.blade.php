@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="form-group">
                             <label>Dokumen</label>
 
@@ -104,7 +104,7 @@
                                 </div>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{{ route('pelaksanaan.index') }}" class="btn btn-light-secondary me-1 mb-1">
