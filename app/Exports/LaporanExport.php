@@ -2,10 +2,8 @@
 
 namespace App\Exports;
 
-use App\Models\Pelaksanaan;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -13,37 +11,19 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LaporanExport implements FromView, ShouldAutoSize, WithStyles
 {
-    protected $request;
+    protected $result;
 
-    public function __construct(Request $request)
+    public function __construct($result)
     {
-        $this->request = $request;
+        $this->result = $result;
     }
 
     public function view(): View
     {
-        $tanggalMulai = $this->request->tanggal_mulai
-            ? Carbon::parse($this->request->tanggal_mulai)
-            : now()->subMonth();
-
-        $tanggalSelesai = $this->request->tanggal_selesai
-            ? Carbon::parse($this->request->tanggal_selesai)
-            : now();
-
-        $query = Pelaksanaan::with('indikator.standar')
-            ->whereBetween('tanggal', [
-                $tanggalMulai->format('Y-m-d'),
-                $tanggalSelesai->format('Y-m-d')
-            ]);
-
-        if ($this->request->filled('prodi')) {
-            $query->where('prodi', $this->request->prodi);
-        }
-
         return view('laporan.excel', [
-            'pelaksanaans' => $query->latest()->get(),
-            'tanggalMulai' => $tanggalMulai,
-            'tanggalSelesai' => $tanggalSelesai,
+            'pelaksanaan' => $this->result['pelaksanaan'],
+            'tanggalMulai' => $this->result['tanggalMulai'],
+            'tanggalSelesai' => $this->result['tanggalSelesai'],
         ]);
     }
 
@@ -74,7 +54,7 @@ class LaporanExport implements FromView, ShouldAutoSize, WithStyles
             ],
         ]);
 
-        $sheet->getStyle('A4:F4')->applyFromArray([
+        $sheet->getStyle('A4:G4')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => [

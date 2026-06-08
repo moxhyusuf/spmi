@@ -16,6 +16,14 @@ class Standar extends Model
     use SoftDeletes;
     protected $table = 'standar';
 
+    protected function casts(): array
+    {
+        return [
+            'tanggal_perumusan' => 'date',
+            'tanggal_pengesahan' => 'date',
+        ];
+    }
+
     public function indikator(): HasMany
     {
         return $this->hasMany(Indikator::class, 'standard_id');

@@ -26,6 +26,7 @@ class IndikatorController extends Controller
     {
         $validated = $request->validate([
             'standard_id' => 'required|exists:standar,id',
+            'pernyataan' => 'required|string',
             'no_iku' => 'required|string|max:255',
             'nama' => 'required|string',
             'target' => 'required|string',
@@ -48,6 +49,7 @@ class IndikatorController extends Controller
     {
         $validated = $request->validate([
             'standard_id' => 'required|exists:standar,id',
+            'pernyataan' => 'required|string',
             'no_iku' => 'required|string|max:255',
             'nama' => 'required|string',
             'target' => 'required|string',

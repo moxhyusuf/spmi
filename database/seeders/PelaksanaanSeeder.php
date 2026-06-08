@@ -12,23 +12,23 @@ class PelaksanaanSeeder extends Seeder
         $pelaksanaan = [
             [
                 'indikator_id' => 1,
-                'prodi' => 'Sistem Informasi',
+                'unit' => 'Program Studi Sistem Informasi',
                 'tanggal' => now(),
-                'keterangan' => 'Hasil tracer study menunjukkan 88% pengguna lulusan menilai sikap dan etika kerja lulusan Prodi Sistem Informasi dalam kategori baik dan sangat baik.',
+                'uraian' => 'Hasil tracer study menunjukkan 88% pengguna lulusan menilai sikap dan etika kerja lulusan Prodi Sistem Informasi dalam kategori baik dan sangat baik.',
                 'dokumen' => 'dokumen/tracer-study-si.pdf',
             ],
             [
                 'indikator_id' => 1,
-                'prodi' => 'Teknologi Informasi',
+                'unit' => 'Program Studi Teknologi Informasi',
                 'tanggal' => now(),
-                'keterangan' => 'Evaluasi pengguna lulusan Prodi Teknologi Informasi menunjukkan tingkat kepuasan terhadap etika kerja lulusan mencapai 90%.',
+                'uraian' => 'Evaluasi pengguna lulusan Prodi Teknologi Informasi menunjukkan tingkat kepuasan terhadap etika kerja lulusan mencapai 90%.',
                 'dokumen' => 'dokumen/evaluasi-pengguna-ti.pdf',
             ],
             [
                 'indikator_id' => 1,
-                'prodi' => 'Sistem Informasi Akuntansi',
+                'unit' => 'Program Studi Sistem Informasi Akuntansi',
                 'tanggal' => now(),
-                'keterangan' => 'Laporan survei alumni dan pengguna lulusan Prodi Sistem Informasi Akuntansi menunjukkan penilaian sikap kerja lulusan berada pada kategori baik.',
+                'uraian' => 'Laporan survei alumni dan pengguna lulusan Prodi Sistem Informasi Akuntansi menunjukkan penilaian sikap kerja lulusan berada pada kategori baik.',
                 'dokumen' => 'dokumen/survei-lulusan-sia.pdf',
             ],
         ];

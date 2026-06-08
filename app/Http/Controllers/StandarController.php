@@ -9,8 +9,11 @@ use Illuminate\View\View;
 
 class StandarController extends Controller
 {
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
+        if (Auth()->user()->role === 'direktur') {
+            return redirect()->route('laporan.index');
+        }
         $standar = Standar::latest()->get();
         return view('standar.index', compact('standar'));
     }

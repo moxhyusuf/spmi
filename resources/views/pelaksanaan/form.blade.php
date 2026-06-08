@@ -23,7 +23,8 @@
 
                                 @foreach ($indikators as $indikator)
                                     <option value="{{ $indikator->id }}" @selected(old('indikator_id', $pelaksanaan->indikator_id ?? '') == $indikator->id)>
-                                        {{ $indikator->standar->nama }} - {{ $indikator->no_iku }}
+                                        ({{ $indikator->standar->nomor }})
+                                        {{ $indikator->standar->nama }} | ({{ $indikator->no_iku }}) {{ $indikator->nama }}
                                     </option>
                                 @endforeach
                             </select>
@@ -38,25 +39,18 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Program Studi</label>
+                            <label>Unit</label>
 
-                            <select name="prodi" class="form-select @error('prodi') is-invalid @enderror">
-                                <option value="">Pilih Program Studi</option>
-
-                                <option value="Sistem Informasi" @selected(old('prodi', $pelaksanaan->prodi ?? '') == 'Sistem Informasi')>
-                                    Sistem Informasi
-                                </option>
-
-                                <option value="Teknologi Informasi" @selected(old('prodi', $pelaksanaan->prodi ?? '') == 'Teknologi Informasi')>
-                                    Teknologi Informasi
-                                </option>
-
-                                <option value="Sistem Informasi Akuntansi" @selected(old('prodi', $pelaksanaan->prodi ?? '') == 'Sistem Informasi Akuntansi')>
-                                    Sistem Informasi Akuntansi
-                                </option>
+                            <select name="unit" class="form-select @error('unit') is-invalid @enderror">
+                                <option value="">Pilih Unit</option>
+                                @foreach (\App\Models\Pelaksanaan::UNIT as $unit)
+                                    <option value="{{ $unit }}" @selected(old('unit', $pelaksanaan->unit ?? '') == $unit)>
+                                        {{ $unit }}
+                                    </option>
+                                @endforeach
                             </select>
 
-                            @error('prodi')
+                            @error('unit')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -68,7 +62,7 @@
                         <div class="form-group">
                             <label>Tanggal</label>
 
-                            <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', $pelaksanaan->tanggal ?? '') }}">
+                            <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', isset($pelaksanaan) ? $pelaksanaan->tanggal?->format('Y-m-d') : '') }}">
 
                             @error('tanggal')
                                 <div class="invalid-feedback">
@@ -80,31 +74,17 @@
 
                     <div class="col-12">
                         <div class="form-group">
-                            <label>Keterangan</label>
+                            <label>Uraian Pelaksanaan</label>
 
-                            <textarea name="keterangan" rows="5" class="form-control @error('keterangan') is-invalid @enderror" placeholder="Masukkan keterangan">{{ old('keterangan', $pelaksanaan->keterangan ?? '') }}</textarea>
+                            <textarea name="uraian" rows="5" class="form-control @error('uraian') is-invalid @enderror" placeholder="Masukkan uraian">{{ old('uraian', $pelaksanaan->uraian ?? '') }}</textarea>
 
-                            @error('keterangan')
+                            @error('uraian')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
                     </div>
-
-                    {{-- <div class="col-12">
-                        <div class="form-group">
-                            <label>Dokumen</label>
-
-                            <input type="file" name="dokumen" class="form-control @error('dokumen') is-invalid @enderror">
-
-                            @error('dokumen')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div> --}}
 
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{{ route('pelaksanaan.index') }}" class="btn btn-light-secondary me-1 mb-1">

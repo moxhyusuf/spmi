@@ -43,7 +43,7 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <label>Tanggal Perumusan</label>
-                                <input type="date" name="tanggal_perumusan" class="form-control @error('tanggal_perumusan') is-invalid @enderror" value="{{ old('tanggal_perumusan', $standar->tanggal_perumusan ?? '') }}">
+                                <input type="date" name="tanggal_perumusan" class="form-control @error('tanggal_perumusan') is-invalid @enderror" value="{{ old('tanggal_perumusan', isset($standar) ? $standar->tanggal_perumusan->format('Y-m-d') : '') }}">
 
                                 @error('tanggal_perumusan')
                                     <div class="invalid-feedback">
@@ -56,7 +56,7 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <label>Tanggal Pengesahan</label>
-                                <input type="date" name="tanggal_pengesahan" class="form-control @error('tanggal_pengesahan') is-invalid @enderror" value="{{ old('tanggal_pengesahan', $standar->tanggal_pengesahan ?? '') }}">
+                                <input type="date" name="tanggal_pengesahan" class="form-control @error('tanggal_pengesahan') is-invalid @enderror" value="{{ old('tanggal_pengesahan', isset($standar) ? $standar->tanggal_pengesahan->format('Y-m-d') : '') }}">
 
                                 @error('tanggal_pengesahan')
                                     <div class="invalid-feedback">

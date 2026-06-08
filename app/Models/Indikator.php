@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['standard_id', 'no_iku', 'nama', 'target'])]
+#[Fillable(['standard_id', 'pernyataan', 'no_iku', 'nama', 'target'])]
 #[Hidden([])]
 
 class Indikator extends Model

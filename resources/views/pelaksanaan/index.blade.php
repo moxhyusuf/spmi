@@ -30,11 +30,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Standar</th>
-                                <th style="white-space: nowrap">No IKU</th>
-                                <th>Prodi</th>
+                                <th>Indikator</th>
+                                <th>Unit</th>
                                 <th style="white-space: nowrap">Tanggal</th>
-                                <th>Keterangan</th>
-                                {{-- <th>Dokumen</th> --}}
+                                <th>Uraian pelaksanaan</th>
                                 @if (auth()->user()->role === 'pic')
                                     <th>Aksi</th>
                                 @endif
@@ -45,16 +44,11 @@
                             @foreach ($pelaksanaans as $pelaksanaan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $pelaksanaan->indikator->standar->nama }}</td>
-                                    <td>{{ $pelaksanaan->indikator->no_iku }}</td>
-                                    <td>{{ $pelaksanaan->prodi }}</td>
-                                    <td style="white-space: nowrap">{{ $pelaksanaan->tanggal }}</td>
-                                    <td>{{ $pelaksanaan->keterangan }}</td>
-                                    {{-- <td>
-                                        <a href="{{ asset('storage/' . $pelaksanaan->dokumen) }}" target="_blank" class="btn btn-sm btn-outline-info">
-                                            Lihat
-                                        </a>
-                                    </td> --}}
+                                    <td>({{ $pelaksanaan->indikator->standar->nomor }}) {{ $pelaksanaan->indikator->standar->nama }}</td>
+                                    <td>({{ $pelaksanaan->indikator->no_iku }}) {{ $pelaksanaan->indikator->nama }}</td>
+                                    <td>{{ $pelaksanaan->unit }}</td>
+                                    <td style="white-space: nowrap">{{ $pelaksanaan->tanggal->format('d-m-Y') }}</td>
+                                    <td>{{ $pelaksanaan->uraian }}</td>
                                     @if (auth()->user()->role === 'pic')
                                         <td>
                                             <div class="d-flex gap-1">

@@ -30,9 +30,9 @@ class PelaksanaanController extends Controller
     {
         $validated = $request->validate([
             'indikator_id' => 'required|exists:indikator,id',
-            'prodi' => 'required',
+            'unit' => 'required|in:' . implode(',', Pelaksanaan::UNIT),
             'tanggal' => 'required|date',
-            'keterangan' => 'required|string',
+            'uraian' => 'required|string',
             'dokumen' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
@@ -60,9 +60,9 @@ class PelaksanaanController extends Controller
     {
         $validated = $request->validate([
             'indikator_id' => 'required|exists:indikator,id',
-            'prodi' => 'required',
+            'unit' => 'required|in:' . implode(',', Pelaksanaan::UNIT),
             'tanggal' => 'required|date',
-            'keterangan' => 'required|string',
+            'uraian' => 'required|string',
             'dokumen' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 

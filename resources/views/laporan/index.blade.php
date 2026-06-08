@@ -22,11 +22,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-end gap-2 mb-3">
 
-                        <a href="{{ route('laporan.export.pdf', request()->query()) }}" class="btn btn-sm btn-danger">
+                        <a href="{{ route('laporan.export.pdf', request()->query()) }}" class="btn btn-sm btn-danger" target="_blank">
                             Export PDF
                         </a>
 
-                        <a href="{{ route('laporan.export.excel', request()->query()) }}" class="btn btn-sm btn-success">
+                        <a href="{{ route('laporan.export.excel', request()->query()) }}" class="btn btn-sm btn-success" target="_blank">
                             Export Excel
                         </a>
 
@@ -52,22 +52,14 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Program Studi</label>
-
-                                    <select name="prodi" class="form-select">
-                                        <option value="">Semua Program Studi</option>
-
-                                        <option value="Sistem Informasi" @selected(request('prodi') == 'Sistem Informasi')>
-                                            Sistem Informasi
-                                        </option>
-
-                                        <option value="Teknologi Informasi" @selected(request('prodi') == 'Teknologi Informasi')>
-                                            Teknologi Informasi
-                                        </option>
-
-                                        <option value="Sistem Informasi Akuntansi" @selected(request('prodi') == 'Sistem Informasi Akuntansi')>
-                                            Sistem Informasi Akuntansi
-                                        </option>
+                                    <label>Unit</label>
+                                    <select name="unit" class="form-select">
+                                        <option value="">Semua Unit</option>
+                                        @foreach (\App\Models\Pelaksanaan::UNIT as $unit)
+                                            <option value="{{ $unit }}" @selected(request('unit') == $unit)>
+                                                {{ $unit }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -84,81 +76,47 @@
                 </div>
             </div>
 
-            @php
-                $tables = [
-                    'Sistem Informasi' => [
-                        'id' => 'table-si',
-                        'data' => $sistemInformasi,
-                    ],
-                    'Teknologi Informasi' => [
-                        'id' => 'table-ti',
-                        'data' => $teknologiInformasi,
-                    ],
-                    'Sistem Informasi Akuntansi' => [
-                        'id' => 'table-sia',
-                        'data' => $sistemInformasiAkuntansi,
-                    ],
-                ];
-            @endphp
-
-            @foreach ($tables as $title => $table)
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            {{ $title }}
-                        </h4>
-                    </div>
-
-                    <div class="card-body">
-
-                        <table class="table table-striped" id="{{ $table['id'] }}">
-
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Standar</th>
-                                    <th>No IKU</th>
-                                    <th>Keterangan</th>
-                                    <th>Tanggal</th>
-                                    <th>Dokumen</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($table['data'] as $pelaksanaan)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-
-                                        <td>
-                                            {{ $pelaksanaan->indikator->standar->nama }}
-                                        </td>
-
-                                        <td>
-                                            {{ $pelaksanaan->indikator->no_iku }}
-                                        </td>
-
-                                        <td>
-                                            {{ $pelaksanaan->keterangan }}
-                                        </td>
-
-                                        <td>
-                                            {{ $pelaksanaan->tanggal }}
-                                        </td>
-
-                                        <td>
-                                            <a href="{{ asset('storage/' . $pelaksanaan->dokumen) }}" target="_blank" class="btn btn-sm btn-info">
-                                                Lihat
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-
-                        </table>
-
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Laporan Pelaksanaan Standar Mutu
+                    </h4>
                 </div>
-            @endforeach
+
+                <div class="card-body">
+
+                    <table class="table table-striped" id="datatable">
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Standar Mutu</th>
+                                <th>Pernyataan Standar</th>
+                                <th>Indikator Standar</th>
+                                <th>Tanggal</th>
+                                <th>Unit</th>
+                                <th>Uraian Pelaksanaan</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($pelaksanaan as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>({{ $item->indikator->standar->nomor }}) {{ $item->indikator->standar->nama }}</td>
+                                    <td>{{ $item->indikator->pernyataan }}</td>
+                                    <td>({{ $item->indikator->no_iku }}) {{ $item->indikator->nama }}</td>
+                                    <td style="white-space: nowrap">{{ $item->tanggal->format('d-m-Y') }}</td>
+                                    <td>{{ $item->unit }}</td>
+                                    <td>{{ $item->uraian }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
 
         </section>
 
@@ -167,8 +125,6 @@
 
 @push('js')
     <script>
-        new simpleDatatables.DataTable("#table-si");
-        new simpleDatatables.DataTable("#table-ti");
-        new simpleDatatables.DataTable("#table-sia");
+        new simpleDatatables.DataTable("#datatable");
     </script>
 @endpush

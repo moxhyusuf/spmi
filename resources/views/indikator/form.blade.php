@@ -24,12 +24,26 @@
 
                                     @foreach ($standars as $standar)
                                         <option value="{{ $standar->id }}" @selected(old('standard_id', $indikator->standard_id ?? '') == $standar->id)>
-                                            {{ $standar->nama }}
+                                            {{ $standar->nomor }} | {{ $standar->nama }}
                                         </option>
                                     @endforeach
                                 </select>
 
                                 @error('standard_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Pernyataan Standar</label>
+
+                                <textarea name="pernyataan" rows="4" class="form-control @error('pernyataan') is-invalid @enderror" placeholder="Masukkan pernyataan standar">{{ old('pernyataan', $indikator->pernyataan ?? '') }}</textarea>
+
+                                @error('pernyataan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

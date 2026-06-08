@@ -43,10 +43,10 @@
                             @foreach ($standar as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->nomor }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->tanggal_perumusan }}</td>
-                                    <td>{{ $item->tanggal_pengesahan }}</td>
+                                    <td class="text-uppercase">{{ $item->nomor }}</td>
+                                    <td class="text-capitalize">{{ $item->nama }}</td>
+                                    <td>{{ $item->tanggal_perumusan->format('d-m-Y') }}</td>
+                                    <td>{{ $item->tanggal_pengesahan->format('d-m-Y') }}</td>
                                     @if (auth()->user()->role === 'ppm')
                                         <td>
                                             <div class="d-flex gap-1">

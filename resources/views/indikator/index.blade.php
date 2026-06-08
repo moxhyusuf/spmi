@@ -29,6 +29,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Standar</th>
+                                <th>Pernyataan Standar</th>
                                 <th>IKU</th>
                                 <th>Nama</th>
                                 <th>Target</th>
@@ -43,6 +44,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $indikator->standar->nama }}</td>
+                                    <td>{{ $indikator->pernyataan }}</td>
                                     <td>{{ $indikator->no_iku }}</td>
                                     <td>{{ $indikator->nama }}</td>
                                     <td>{{ $indikator->target }}</td>

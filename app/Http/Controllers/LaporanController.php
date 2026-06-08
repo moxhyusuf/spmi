@@ -14,53 +14,23 @@ class LaporanController extends Controller
 {
     public function index(Request $request): View
     {
-        $tanggalMulai = $request->tanggal_mulai
-            ? Carbon::parse($request->tanggal_mulai)
-            : now()->subMonth();
+        $result = $this->getFilteredData($request);
+        $pelaksanaan = $result['pelaksanaan'];
+        $tanggalMulai = $result['tanggalMulai'];
+        $tanggalSelesai = $result['tanggalSelesai'];
 
-        $tanggalSelesai = $request->tanggal_selesai
-            ? Carbon::parse($request->tanggal_selesai)
-            : now();
-
-        $query = Pelaksanaan::with('indikator.standar')
-            ->whereBetween('tanggal', [
-                $tanggalMulai->format('Y-m-d'),
-                $tanggalSelesai->format('Y-m-d')
-            ]);
-
-        if ($request->filled('prodi')) {
-            $query->where('prodi', $request->prodi);
-        }
-
-        $pelaksanaans = $query->latest()->get();
-
-        $sistemInformasi = $pelaksanaans
-            ->where('prodi', 'Sistem Informasi');
-
-        $teknologiInformasi = $pelaksanaans
-            ->where('prodi', 'Teknologi Informasi');
-
-        $sistemInformasiAkuntansi = $pelaksanaans
-            ->where('prodi', 'Sistem Informasi Akuntansi');
-
-        return view('laporan.index', compact(
-            'sistemInformasi',
-            'teknologiInformasi',
-            'sistemInformasiAkuntansi',
-            'tanggalMulai',
-            'tanggalSelesai'
-        ));
+        return view('laporan.index', [
+            'pelaksanaan' => $result['pelaksanaan'],
+            'tanggalMulai' => $result['tanggalMulai'],
+            'tanggalSelesai' => $result['tanggalSelesai'],
+        ]);
     }
 
     private function getFilteredData(Request $request)
     {
-        $tanggalMulai = $request->tanggal_mulai
-            ? Carbon::parse($request->tanggal_mulai)
-            : now()->subMonth();
-
-        $tanggalSelesai = $request->tanggal_selesai
-            ? Carbon::parse($request->tanggal_selesai)
-            : now();
+        $tanggalMulai = $request->tanggal_mulai ? Carbon::parse($request->tanggal_mulai) : now()->subMonth();
+        $tanggalSelesai = $request->tanggal_selesai ? Carbon::parse($request->tanggal_selesai) : now();
+        $unit = $request->unit ? $request->unit : null;
 
         $query = Pelaksanaan::with('indikator.standar')
             ->whereBetween('tanggal', [
@@ -72,8 +42,14 @@ class LaporanController extends Controller
             $query->where('prodi', $request->prodi);
         }
 
+        if ($unit) {
+            $query->where('unit', $unit);
+        }
+
+        $pelaksanaan = $query->latest()->get();
+
         return [
-            'data' => $query->latest()->get(),
+            'pelaksanaan' => $pelaksanaan,
             'tanggalMulai' => $tanggalMulai,
             'tanggalSelesai' => $tanggalSelesai,
         ];
@@ -84,7 +60,7 @@ class LaporanController extends Controller
         $result = $this->getFilteredData($request);
 
         $pdf = Pdf::loadView('laporan.pdf', [
-            'pelaksanaans' => $result['data'],
+            'pelaksanaan' => $result['pelaksanaan'],
             'tanggalMulai' => $result['tanggalMulai'],
             'tanggalSelesai' => $result['tanggalSelesai'],
         ])->setPaper('a4', 'landscape');
@@ -94,9 +70,7 @@ class LaporanController extends Controller
 
     public function exportExcel(Request $request)
     {
-        return Excel::download(
-            new LaporanExport($request),
-            'laporan-pelaksanaan.xlsx'
-        );
+        $result = $this->getFilteredData($request);
+        return Excel::download(new LaporanExport($result), 'laporan-pelaksanaan.xlsx');
     }
 }

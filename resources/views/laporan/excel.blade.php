@@ -14,28 +14,28 @@
                 {{ $tanggalSelesai->format('d M Y') }}
             </th>
         </tr>
-
         <tr></tr>
-
         <tr>
             <th>No</th>
-            <th>Standar</th>
-            <th>No IKU</th>
-            <th>Program Studi</th>
-            <th>Keterangan</th>
+            <th>Standar Mutu</th>
+            <th>Pernyataan Standar</th>
+            <th>Indikator Standar</th>
             <th>Tanggal</th>
+            <th>Unit</th>
+            <th>Uraian Pelaksanaan</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach ($pelaksanaans as $pelaksanaan)
+        @foreach ($pelaksanaan as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $pelaksanaan->indikator->standar->nama }}</td>
-                <td>{{ $pelaksanaan->indikator->no_iku }}</td>
-                <td>{{ $pelaksanaan->prodi }}</td>
-                <td>{{ $pelaksanaan->keterangan }}</td>
-                <td>{{ $pelaksanaan->tanggal }}</td>
+                <td>({{ $item->indikator->standar->nomor }}) {{ $item->indikator->standar->nama }}</td>
+                <td>{{ $item->indikator->pernyataan }}</td>
+                <td>({{ $item->indikator->no_iku }}) {{ $item->indikator->nama }}</td>
+                <td style="white-space: nowrap">{{ $item->tanggal->format('d-m-Y') }}</td>
+                <td>{{ $item->unit }}</td>
+                <td>{{ $item->uraian }}</td>
             </tr>
         @endforeach
     </tbody>

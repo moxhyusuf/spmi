@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('indikator', function (Blueprint $table) {
             $table->id();
             $table->foreignId('standard_id')->constrained('standar');
+            $table->text('pernyataan');
             $table->string('no_iku');
             $table->string('nama');
             $table->string('target');
