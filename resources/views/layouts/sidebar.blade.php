@@ -4,6 +4,7 @@
             <div class="d-flex justify-content-between">
                 <div class="logo">
                     <a href="{{ route('standar.index') }}"><img src="{{ asset('images/logo.png') }}" alt="Logo" srcset=""></a>
+                    <span style="font-size: .7em;">AMIK Taruna</span>
                 </div>
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
