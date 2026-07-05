@@ -2,6 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@yield('title') | SPMI</title>
 
+<link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -12,5 +15,6 @@
 <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 @stack('css')

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pelaksanaan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +12,7 @@ return new class extends Migration
         Schema::create('pelaksanaan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('indikator_id')->constrained('indikator');
-            $table->enum('unit', \App\Models\Pelaksanaan::UNIT)->default('Pusat Penjaminan Mutu');
+            $table->enum('unit', Pelaksanaan::UNIT)->default('Pusat Penjaminan Mutu');
             $table->date('tanggal')->default(now());
             $table->text('uraian')->nullable();
             $table->string('dokumen')->nullable();
