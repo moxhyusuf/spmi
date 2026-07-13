@@ -13,6 +13,12 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
+                <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                        <i class="bi bi-speedometer"></i>
+                        <span>Dasboard</span>
+                    </a>
+                </li>
                 @if (auth()->user()->role !== 'direktur')
                     <li class="sidebar-item {{ request()->routeIs('standar.*') ? 'active' : '' }}">
                         <a href="{{ route('standar.index') }}" class='sidebar-link'>

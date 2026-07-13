@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelaksanaanController;
@@ -14,7 +15,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::redirect('/', '/standar');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/standar', StandarController::class);
     Route::resource('/indikator', IndikatorController::class);
     Route::resource('/pelaksanaan', PelaksanaanController::class);
