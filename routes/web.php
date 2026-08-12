@@ -9,6 +9,7 @@ use App\Http\Controllers\PelaksanaanController;
 use App\Http\Controllers\StandarController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');

@@ -55,7 +55,7 @@
                                     <label>Unit</label>
                                     <select name="unit" class="form-select">
                                         <option value="">Semua Unit</option>
-                                        @foreach (\App\Models\Pelaksanaan::UNIT as $unit)
+                                        @foreach (\App\Models\Indikator::UNIT as $unit)
                                             <option value="{{ $unit }}" @selected(request('unit') == $unit)>
                                                 {{ $unit }}
                                             </option>
@@ -107,7 +107,7 @@
                                     <td>{{ $item->indikator->pernyataan }}</td>
                                     <td>({{ $item->indikator->no_iku }}) {{ $item->indikator->nama }}</td>
                                     <td style="white-space: nowrap">{{ $item->tanggal->format('d-m-Y') }}</td>
-                                    <td>{{ $item->unit }}</td>
+                                    <td>{{ $item->indikator->unit }}</td>
                                     <td>{{ $item->uraian }}</td>
                                 </tr>
                             @endforeach

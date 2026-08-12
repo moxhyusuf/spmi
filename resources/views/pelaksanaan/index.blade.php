@@ -46,7 +46,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>({{ $pelaksanaan->indikator->standar->nomor }}) {{ $pelaksanaan->indikator->standar->nama }}</td>
                                     <td>({{ $pelaksanaan->indikator->no_iku }}) {{ $pelaksanaan->indikator->nama }}</td>
-                                    <td>{{ $pelaksanaan->unit }}</td>
+                                    <td>{{ $pelaksanaan->indikator->unit }}</td>
                                     <td style="white-space: nowrap">{{ $pelaksanaan->tanggal->format('d-m-Y') }}</td>
                                     <td>{{ $pelaksanaan->uraian }}</td>
                                     @if (auth()->user()->role === 'pic')

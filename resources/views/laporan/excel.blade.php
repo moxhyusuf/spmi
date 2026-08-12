@@ -34,7 +34,7 @@
                 <td>{{ $item->indikator->pernyataan }}</td>
                 <td>({{ $item->indikator->no_iku }}) {{ $item->indikator->nama }}</td>
                 <td style="white-space: nowrap">{{ $item->tanggal->format('d-m-Y') }}</td>
-                <td>{{ $item->unit }}</td>
+                <td>{{ $item->indikator->unit }}</td>
                 <td>{{ $item->uraian }}</td>
             </tr>
         @endforeach

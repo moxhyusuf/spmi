@@ -15,9 +15,6 @@ class LaporanController extends Controller
     public function index(Request $request): View
     {
         $result = $this->getFilteredData($request);
-        $pelaksanaan = $result['pelaksanaan'];
-        $tanggalMulai = $result['tanggalMulai'];
-        $tanggalSelesai = $result['tanggalSelesai'];
 
         return view('laporan.index', [
             'pelaksanaan' => $result['pelaksanaan'],
@@ -43,7 +40,9 @@ class LaporanController extends Controller
         }
 
         if ($unit) {
-            $query->where('unit', $unit);
+            $query->whereHas('indikator', function ($q) use ($unit) {
+                $q->where('unit', $unit);
+            });
         }
 
         $pelaksanaan = $query->latest()->get();

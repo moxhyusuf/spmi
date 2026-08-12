@@ -37,6 +37,28 @@
                             </div>
                         </div>
 
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Unit</label>
+
+                                <select name="unit" class="form-select @error('unit') is-invalid @enderror">
+                                    <option value="">Pilih Unit</option>
+
+                                    @foreach ($units as $unit)
+                                        <option value="{{ $unit }}" @selected(old('unit', $indikator->unit ?? '') == $unit)>
+                                            {{ $unit }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                @error('unit')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <label>Pernyataan Standar</label>

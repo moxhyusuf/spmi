@@ -12,7 +12,6 @@ return new class extends Migration
         Schema::create('pelaksanaan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('indikator_id')->constrained('indikator');
-            $table->enum('unit', Pelaksanaan::UNIT)->default('Pusat Penjaminan Mutu');
             $table->date('tanggal')->default(now());
             $table->text('uraian')->nullable();
             $table->string('dokumen')->nullable();

@@ -18,47 +18,28 @@
                         <div class="form-group">
                             <label>Indikator</label>
 
-                            <select name="indikator_id" class="form-select @error('indikator_id') is-invalid @enderror">
+                            <select name="indikator_id" id="indikator_id" class="form-select @error('indikator_id') is-invalid @enderror">
                                 <option value="">Pilih Indikator</option>
 
-                                @foreach ($indikators as $indikator)
-                                    <option value="{{ $indikator->id }}" @selected(old('indikator_id', $pelaksanaan->indikator_id ?? '') == $indikator->id)>
-                                        ({{ $indikator->standar->nomor }})
-                                        {{ $indikator->standar->nama }} | ({{ $indikator->no_iku }}) {{ $indikator->nama }}
-                                    </option>
+                                @foreach ($indikators->groupBy(fn($i) => $i->standar->nomor . ' | ' . $i->standar->nama) as $groupLabel => $groupIndikators)
+                                    <optgroup label="{{ $groupLabel }}">
+                                        @foreach ($groupIndikators as $indikator)
+                                            <option value="{{ $indikator->id }}" @selected(old('indikator_id', $pelaksanaan->indikator_id ?? '') == $indikator->id)>
+                                                ({{ $indikator->no_iku }})
+                                                {{ $indikator->nama }} — {{ $indikator->unit }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
 
                             @error('indikator_id')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Unit</label>
-
-                            <select name="unit" class="form-select @error('unit') is-invalid @enderror">
-                                <option value="">Pilih Unit</option>
-                                @foreach (\App\Models\Pelaksanaan::UNIT as $unit)
-                                    <option value="{{ $unit }}" @selected(old('unit', $pelaksanaan->unit ?? '') == $unit)>
-                                        {{ $unit }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            @error('unit')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
+                    <div class="col-12">
                         <div class="form-group">
                             <label>Tanggal</label>
 

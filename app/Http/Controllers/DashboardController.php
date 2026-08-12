@@ -19,8 +19,9 @@ class DashboardController extends Controller
 
         $indikatorBelumTerlaksana = Indikator::doesntHave('pelaksanaan')->count();
 
-        $pelaksanaanPerUnit = Pelaksanaan::select('unit', DB::raw('count(*) as total'))
-            ->groupBy('unit')
+        $pelaksanaanPerUnit = Pelaksanaan::join('indikator', 'pelaksanaan.indikator_id', '=', 'indikator.id')
+            ->select('indikator.unit', DB::raw('count(*) as total'))
+            ->groupBy('indikator.unit')
             ->orderByDesc('total')
             ->get();
 
@@ -33,7 +34,7 @@ class DashboardController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        $pelaksanaanTerbaru = Pelaksanaan::with(['indikator.standar', 'user'])
+        $pelaksanaanTerbaru = Pelaksanaan::with(['indikator.standar'])
             ->latest('tanggal')
             ->limit(5)
             ->get();

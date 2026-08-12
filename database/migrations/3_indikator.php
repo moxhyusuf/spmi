@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Indikator;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class extends Migration
             $table->string('no_iku');
             $table->string('nama');
             $table->string('target');
+            $table->enum('unit', Indikator::UNIT)->default('Pusat Penjaminan Mutu');
             $table->softDeletes();
             $table->timestamps();
         });

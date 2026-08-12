@@ -19,13 +19,15 @@ class IndikatorController extends Controller
     public function create(): View
     {
         $standars = Standar::all();
-        return view('indikator.create', compact('standars'));
+        $units = Indikator::UNIT;
+        return view('indikator.create', compact('standars', 'units'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'standard_id' => 'required|exists:standar,id',
+            'unit' => 'required|string|in:' . implode(',', Indikator::UNIT),
             'pernyataan' => 'required|string',
             'no_iku' => 'required|string|max:255',
             'nama' => 'required|string',
@@ -42,13 +44,15 @@ class IndikatorController extends Controller
     public function edit(Indikator $indikator): View
     {
         $standars = Standar::all();
-        return view('indikator.edit', compact('indikator', 'standars'));
+        $units = Indikator::UNIT;
+        return view('indikator.edit', compact('indikator', 'standars', 'units'));
     }
 
     public function update(Request $request, Indikator $indikator): RedirectResponse
     {
         $validated = $request->validate([
             'standard_id' => 'required|exists:standar,id',
+            'unit' => 'required|string|in:' . implode(',', Indikator::UNIT),
             'pernyataan' => 'required|string',
             'no_iku' => 'required|string|max:255',
             'nama' => 'required|string',
